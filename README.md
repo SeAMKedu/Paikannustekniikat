@@ -15,9 +15,15 @@ Harjoituksessa on seuraavat vaiheet:
 #### NMEA-tiedosto
 
 Voit kerätä NMEA-dataa omalta GPS-vastaanottimeltasi ja tallentaa sen tiedostoon. Vaihtoehtoisesti voit kopioida NMEA-dataa esimerkkitiedostosta:
-[nmeadata1.txt](/examples/nmeadata1.txt)
+[nmeadata1.txt](/examples/nmeadata1.txt).
 
+Tallenna tiedosto hakemistoosi. Aloita tekemällä Python-ohjelma, joka lukee tiedoston rivi riviltä.
 
+```python
+if (isAwesome){
+  return true
+}
+```
 
 
 
