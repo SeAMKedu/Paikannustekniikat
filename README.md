@@ -12,7 +12,7 @@ Harjoituksessa on seuraavat vaiheet:
 3. Tulosta korkeusdata graafisessa muodossa (esim. numpy) ajan funktiona.
 4. Laske korkeuden keskiarvo sekä keskihajonta.
 
-#### NMEA-tiedosto
+#### NMEA-tiedoston lukeminen
 
 GPS-vastaanottimet tuottavat dataa NMEA-muodossa. 
 
@@ -72,6 +72,8 @@ for row in file:
 
 file.close()
 ```
+#### Leveyspiiri, pituuspiiri ja korkeus
+
 Esimerkkikoodissa on tulostettu $GPGGA-viestin sisältö alkioittain. Tulostuksesta nähdään, että leveyspiiri on kohdassa 2, pituuspiiri kohdassa 4 ja korkeus kohdassa 9. Leveyspiirin ja pistuuspiirin etumerkit ovat kohdissa 3 ja 5 (N on plus, S on miinus, E on plus ja W on miinus). Järjestysnumero vastaa taulukon pieces indeksiä. 
 
 Huomaa, että leveyspiirissä kaksi ensimmäistä numeroa on asteet ja kaksi seuraavaa numeroa on minuutit. Pisteen jälkeen tulevat minuuttien desimaalit. Pituuspiiri on muuten samanlainen, mutta asteita varten on varattu kolme merkkiä.
@@ -106,4 +108,59 @@ Tulosta leveyspiiri, pituuspiiri ja korkeus. Voit jättää edellisessä vaihees
 ```
 
 Valmis ohjelma löytyy tiedostosta [readnmea_1.py](/examples/readnmea_1.py)
+
+#### Korkeusdatan tulostaminen graafisessa muodossa
+
+Tulostetaan seuraavaksi korkeusdata ajan funktiona graafisessa muodossa. Kerätään GPS-ajat ja korkeudet listaan ja tulostetaan data käyttäen matplotlib.pyplot-kirjastoa.
+
+Asenna ensin numpy- ja matplotlib-kirjastot pip:llä.
+```
+pip install numpy
+pip install matplotlib
+```
+Lisää edellisessä harjoituksessa tehdyn ohjelman alkuun seuraavat rivit:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+```
+Esittele listat GPS-aikoja ja korkeutta varten
+```python
+# avaa tiedosto
+file = open("nmeadata1.txt", "r")
+
+# lista GPS-aikaa varten
+gpstime = []
+# lista korkeutta varten
+heightdata = []
+```
+Lisää GPS-ajat ja lasketut korkeudet listoihin:
+```python
+        # korkeus
+        height = float(pieces[9])
+
+        # lisää GPS-aika listaan
+        gpstime.append(float(pieces[1]))
+        # lisää korkeus listaan
+        heightdata.append(height)
+
+        print(latitude, longitude, height)
+```
+Laske ohjelman lopussa vielä korkeuden keskiarvo ja keskihajonta numpy-kirjaston avulla.
+```python
+# keskiarvo
+average = np.mean(heightdata)
+# keskihajonta
+std = np.std(heightdata)
+print("Average =", average, "Standard deviation =", std)
+```
+Tulosta korkeus ajan funktiona graafisessa muodossa.
+```python
+plt.plot(gpstime, heightdata)
+plt.title("GPS-korkeus")
+plt.xlabel("Aika [s]")
+plt.ylabel("Korkeus [m]")
+plt.show()
+```
+Graafinen tulostus näyttää tältä:
+![alt text](/images/Korkeusplot.png)
 
