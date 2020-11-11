@@ -176,6 +176,7 @@ Tarvittavat koordinaattimuunnokset ovat tiedostossa [conversions.py](/examples/c
 Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus).
 
 Muunnos maantieteellisistä koordinaateista tapahtuu seuraavilla kaavoilla:
+
 ![](/images/lla2xyz.png)
 
 Vastaava Python-funktio lla2xyz löytyy tiedostosta [conversions.py](/examples/conversions.py). 
