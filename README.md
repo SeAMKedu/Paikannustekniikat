@@ -162,5 +162,5 @@ plt.ylabel("Korkeus [m]")
 plt.show()
 ```
 Graafinen tulostus näyttää tältä:
-![alt text](/images/Korkeusplot.PNG)
+![](/images/Korkeusplot.PNG)
 
