@@ -173,5 +173,7 @@ Jatka edellistä ohjelmaa siten, että piirtää näytölle graafisessa muodossa
 
 Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus).
 
-Muunnos maantieteellisistä koordinaateista tapahtuu 
-
+Muunnos maantieteellisistä koordinaateista tapahtuu seuraavilla kaavoilla:
+$$
+[(X@Y@Z)]
+$$
