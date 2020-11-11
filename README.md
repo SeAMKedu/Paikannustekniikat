@@ -32,7 +32,7 @@ Meitä kiinnostaa nyt eniten $GPGGA-viesti, jossa on muun muassa GPS-vastaanotti
 ```
 $GPGGA,082327.00,6247.32927,N,02249.35779,E,1,05,1.73,41.4,M,20.7,M,,*6C
 ```
-$GPGGA-viestin sisältö on kuvattu sivulla [NMEA](https://www.trimble.com/OEM_ReceiverHelp/V4.44/en/NMEA-0183messages_GGA.html)
+$GPGGA-viestin sisältö on kuvattu [täällä](https://www.trimble.com/OEM_ReceiverHelp/V4.44/en/NMEA-0183messages_GGA.html)
 
 Voit kerätä NMEA-dataa omalta GPS-vastaanottimeltasi ja tallentaa sen tiedostoon. Voit käyttää terminaaliohjelmaa tai sitten tehdä oman ohjelman, joka lukee tekstimuotoista dataa sarjaportista ja tallentaa sen tiedostoon.
 
@@ -52,6 +52,28 @@ for row in file:
     print(row)
 file.close()
 ```
-Muokkaa ohjelmaa siten, että se poimii vain $GPGGA-viestit.
+Muokkaa ohjelmaa siten, että se poimii vain $GPGGA-viestit. Palastele $GPGGA-viesti pilkkujen kohdalta merkkijonotaulukon alkioiksi.
 
+```python
+file = open("nmeadata1.txt", "r")
 
+for row in file:
+    # poista rivinvaihto
+    row = row.strip()
+    # otetaan vain $GPGGA-viestit
+    if row[:6] == "$GPGGA":
+        # $GPGGA,082715.00,6247.33232,N,02249.35854,E,1,07,1.61,51.3,M,20.7,M,,*60
+        # palastele rivi pilkkujen kohdalta
+        pieces = row.split(',')
+        # tulosta merkkijonotaulukon sisältö
+        for i in range(len(pieces)):
+            print(i, pieces[i])
+    print()
+
+file.close()
+```
+Esimerkkikoodissa on tulostettu $GPGGA-viestin sisältö alkioittain. Tulostuksesta nähdään, että leveyspiiri on kohdassa 2, pituuspiiri kohdassa 4 ja korkeus kohdassa 9. Leveyspiirin ja pistuuspiirin etumerkit ovat kohdissa 3 ja 5 (N on plus, S on miinus, E on plus ja W on miinus). Järjestysnumero vastaa taulukon pieces indeksiä. 
+
+Huomaa, että leveyspiirissä kaksi ensimmäistä numeroa on asteet ja kaksi seuraavaa numeroa on minuutit. Pisteen jälkeen tulevat minuuttien desimaalit. Pituuspiiri on muuten samanlainen, mutta asteita varten on varattu kolme merkkiä.
+
+Muuta ohjelmaa seuraavaksi siten, että se muuntaa leveyspiirin ja pituuspiirin numeroiksi siten, että kokonaisosassa on asteet ja desimaaliosassa on asteiden desimaalit. Minuutit ja niiden osat pitää siis muuntaa asteen sadasosiksi. Muunna myös korkeus desimaaliseksi.
