@@ -76,4 +76,34 @@ Esimerkkikoodissa on tulostettu $GPGGA-viestin sisältö alkioittain. Tulostukse
 
 Huomaa, että leveyspiirissä kaksi ensimmäistä numeroa on asteet ja kaksi seuraavaa numeroa on minuutit. Pisteen jälkeen tulevat minuuttien desimaalit. Pituuspiiri on muuten samanlainen, mutta asteita varten on varattu kolme merkkiä.
 
-Muuta ohjelmaa seuraavaksi siten, että se muuntaa leveyspiirin ja pituuspiirin numeroiksi siten, että kokonaisosassa on asteet ja desimaaliosassa on asteiden desimaalit. Minuutit ja niiden osat pitää siis muuntaa asteen sadasosiksi. Muunna myös korkeus desimaaliseksi.
+Muuta ohjelmaa seuraavaksi siten, että se muuntaa leveyspiirin ja pituuspiirin numeroiksi siten, että kokonaisosassa on asteet ja desimaaliosassa on asteiden desimaalit. Minuutit ja niiden osat pitää siis muuntaa asteen sadasosiksi. Muunna myös korkeus numeroksi. 
+
+Tulosta leveyspiiri, pituuspiiri ja korkeus. Voit jättää edellisessä vaiheessa olleen merkkijonotaulukon sisällön tulostuksen pois.
+
+```python
+    if row[:6] == "$GPGGA":
+        # $GPGGA,082715.00,6247.33232,N,02249.35854,E,1,07,1.61,51.3,M,20.7,M,,*60
+        # palastele rivi pilkkujen kohdalta
+        pieces = row.split(',')
+        # leveyspiiri
+        latitude_degrees = int(pieces[2][:2]) # asteet
+        latitude_minutes = float(pieces[2][2:10]) # minuutit ja minuuttien desimaalit
+        latitude = latitude_degrees + latitude_minutes * 100.0 / 60.0 / 100.0
+        if pieces[3] == 'S':
+            latitude *= -1
+
+        # pituuspiiri
+        longitude_degrees = int(pieces[4][:3]) # asteet
+        longitude_minutes = float(pieces[4][3:11]) # minuutit ja minuuttien desimaalit
+        longitude = longitude_degrees + longitude_minutes * 100.0 / 60.0 / 100.0
+        if pieces[5] == 'W':
+            longitude *= -1
+
+        # korkeus
+        height = float(pieces[9])
+
+        print(latitude, longitude, height)
+```
+
+Valmis ohjelma löytyy tiedostosta [readnmea_1.py](/examples/readnmea_1.py)
+
