@@ -4,7 +4,7 @@
 
 ### Harjoitus 1
 
-Tee ohjelma, joka tulostaa paikallaan olevan GPS-vastaanottimen korkeuden kuvaajan näyttöön. Ohjelma laskee myös korkeuden keskiarvon sekä keskihajonnan.
+Tee ohjelma, joka tulostaa paikallaan olevan GPS-vastaanottimen korkeuden kuvaajan näytölle graafisessa muodossa. Ohjelma laskee myös korkeuden keskiarvon sekä keskihajonnan.
 
 Harjoituksessa on seuraavat vaiheet:
 1. Kerää NMEA-muotoista dataa GPS-vastaanottimelta. Voit käyttää terminaaliohjelmaa tai sitten tehdä oman ohjelman, joka lukee tekstimuotoista dataa sarjaportista ja tallentaa sen tiedostoon.
@@ -164,4 +164,14 @@ plt.show()
 Graafinen tulostus näyttää tältä:
 
 ![](/images/Korkeusplot.PNG)
+
+### Harjoitus 2
+
+Jatka edellistä ohjelmaa siten, että piirtää näytölle graafisessa muodossa GPS-vastaanottimen laskemien paikkojen vaakakomponentit. 
+
+#### Koordinaattimuunnokset
+
+Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus).
+
+Muunnos maantieteellisistä koordinaateista tapahtuu 
 
