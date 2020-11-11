@@ -179,6 +179,8 @@ Muunnos maantieteellisistä koordinaateista tapahtuu seuraavilla kaavoilla:
 
 ![](/images/lla2xyz.png)
 
+![](/images/nterm.png)
+
 Vastaava Python-funktio lla2xyz löytyy tiedostosta [conversions.py](/examples/conversions.py). 
 ```python
 R = 6378137
