@@ -15,7 +15,7 @@ Harjoituksessa on seuraavat vaiheet:
 #### NMEA-tiedosto
 
 Voit kerätä NMEA-dataa omalta GPS-vastaanottimeltasi ja tallentaa sen tiedostoon. Vaihtoehtoisesti voit kopioida NMEA-dataa esimerkkitiedostosta:
-[nmeadata1.txt](https://github.com/SeAMKedu/Paikannustekniikat/blob/main/examples/nmeadata1.txt)
+[nmeadata1.txt](/examples/nmeadata1.txt)
 
 
 
