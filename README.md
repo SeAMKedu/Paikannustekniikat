@@ -167,41 +167,14 @@ Graafinen tulostus näyttää tältä:
 
 ### Harjoitus 2
 
-Jatka edellistä ohjelmaa siten, että piirtää näytölle graafisessa muodossa GPS-vastaanottimen laskemien paikkojen vaakakomponentit. 
+Jatka edellistä ohjelmaa siten, että se piirtää näytölle graafisessa muodossa GPS-vastaanottimen laskemien paikkojen vaakakomponentit. Mitatut pisteet halutaan  näyttää tasokoordinaatistossa, jonko origo on mitattujen pisteiden keskiarvo. Tässä paikalliseen tangenttitasoon asetetussa kooridnaatistossa X-akseli osoittaa itään ja Y-akseli pohjoiseen. Z-akseli osoittaa ylöspäin tasosta katsojaa kohti.
+
+NMEA-tiedostossa olevat maantieteelliset koordinaatit (lat, lon, alt) muunnetaan ensin maakeskisiksi suorakulmaisiksi koordinaateiksi (X, Y, Z). Tämän jälkeen lasketaan X-, Y-, ja Z-koordinaattien keskiarvo, josta tulee tasokoordinaatiston origo. Seuraavaksi muodostetaan erotusvektorit vähentämällä kunkin pisteen XYZ-koordinaateista origon XYZ-koordinaatit. Koordinaattimuunnos paikalliseen tangenttitasoon tapahtuu tekemällä koordinaatiston kierrot pituuspiirin ja leveyspiirin mukaan. 
 
 #### Koordinaattimuunnokset
 
 Tarvittavat koordinaattimuunnokset ovat tiedostossa [conversions.py](/examples/conversions.py)
 
-Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus).
+Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus). Python-funktio lla2xyz muuntaa maantieteelliset koordinaatit suorakulmaisiksi koordinaateiksi.
 
-Muunnos maantieteellisistä koordinaateista tapahtuu seuraavilla kaavoilla:
 
-![](/images/lla2xyz.png)
-
-![](/images/nterm.png)
-
-Vastaava Python-funktio lla2xyz löytyy tiedostosta [conversions.py](/examples/conversions.py). 
-```python
-R = 6378137
-f = 1.0 / 298.257224
-e2 = 1 - (1 - f) * (1 - f)
-
-def lla2xyz(latitude, longitude, altitude):
-    # lat, lon degrees
-    # alt meters
-    cosLat = math.cos(latitude * math.pi / 180)
-    sinLat = math.sin(latitude * math.pi / 180)
-
-    cosLong = math.cos(longitude * math.pi / 180)
-    sinLong = math.sin(longitude * math.pi / 180)
-
-    c = 1 / math.sqrt(cosLat * cosLat + (1 - f) * (1 - f) * sinLat * sinLat)
-    s = (1 - f) * (1 - f) * c
-
-    x = (R*c + altitude) * cosLat * cosLong
-    y = (R*c + altitude) * cosLat * sinLong
-    z = (R*s + altitude) * sinLat
-
-    return x, y, z
-```
