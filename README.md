@@ -12,6 +12,13 @@ Harjoituksessa on seuraavat vaiheet:
 3. Tulosta korkeusdata graafisessa muodossa (esim. numpy) ajan funktiona.
 4. Laske korkeuden keskiarvo sekä keskihajonta.
 
+#### NMEA-tiedosto
+
+Voit kerätä NMEA-dataa omalta GPS-vastaanottimeltasi ja tallentaa sen tiedostoon. Vaihtoehtoisesti voit kopioida NMEA-dataa esimerkkitiedostosta:
+[nmeadata1.txt](https://github.com/SeAMKedu/Paikannustekniikat/blob/main/examples/nmeadata1.txt)
+
+
+
 
 
 
