@@ -1,6 +1,6 @@
 import math
 
-R = 6378137
+N = 6378137
 f = 1.0 / 298.257224
 e2 = 1 - (1 - f) * (1 - f)
 
@@ -16,9 +16,9 @@ def lla2xyz(latitude, longitude, altitude):
     c = 1 / math.sqrt(cosLat * cosLat + (1 - f) * (1 - f) * sinLat * sinLat)
     s = (1 - f) * (1 - f) * c
 
-    x = (R*c + altitude) * cosLat * cosLong
-    y = (R*c + altitude) * cosLat * sinLong
-    z = (R*s + altitude) * sinLat
+    x = (N*c + altitude) * cosLat * cosLong
+    y = (N*c + altitude) * cosLat * sinLong
+    z = (N*s + altitude) * sinLat
 
     return x, y, z
 
@@ -32,9 +32,9 @@ def xyz2enu(x, y, z, latOrigin, longOrigin, altOrigin):
 
     cOrigin = 1 / math.sqrt(cosLatOrigin * cosLatOrigin + (1 - f) * (1 - f) * sinLatOrigin * sinLatOrigin)
 
-    x0 = (R*cOrigin + altOrigin) * cosLatOrigin * cosLongOrigin
-    y0 = (R*cOrigin + altOrigin) * cosLatOrigin * sinLongOrigin
-    z0 = (R*cOrigin*(1-e2) + altOrigin) * sinLatOrigin
+    x0 = (N*cOrigin + altOrigin) * cosLatOrigin * cosLongOrigin
+    y0 = (N*cOrigin + altOrigin) * cosLatOrigin * sinLongOrigin
+    z0 = (N*cOrigin*(1-e2) + altOrigin) * sinLatOrigin
 
     xEast = (-(x-x0) * sinLongOrigin) + ((y-y0)*cosLongOrigin)
 
