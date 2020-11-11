@@ -20,9 +20,15 @@ Voit kerätä NMEA-dataa omalta GPS-vastaanottimeltasi ja tallentaa sen tiedosto
 Tallenna tiedosto hakemistoosi. Aloita tekemällä Python-ohjelma, joka lukee tiedoston rivi riviltä.
 
 ```python
-if (isAwesome){
-  return true
-}
+# avaa tiedosto
+file = open("nmeadata1.txt", "r")
+
+for row in file:
+    # poista rivinvaihto
+    row = row.strip()
+    # tulosta rivi
+    print(row)
+file.close()
 ```
 
 
