@@ -254,3 +254,9 @@ Tulostus näyttää tältä.
 
 ![](/images/Vaakaplot.png)
 
+### Harjoitus 3
+
+Ensimmäisessä harjoituksessa kerättiin korkeusdataa listaan. Toisessa harjoituksessa muunnettiin lat-lon-alt-data paikalliseen tasokoordinaatistoon (enu). Muunnoksessa syntyi myös pisteiden up-komponentit, jotka kerättiin myös listaan. Alkuperäisen korkeusdatan ja tasokoordinaatiston up-datojen kuvittelisi olevan samoja, mutta ne eivät ole. Mistä ero johtuu?
+
+
+
