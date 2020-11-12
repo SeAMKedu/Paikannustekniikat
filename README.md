@@ -171,10 +171,22 @@ Jatka edellistä ohjelmaa siten, että se piirtää näytölle graafisessa muodo
 
 NMEA-tiedostossa olevat maantieteelliset koordinaatit (lat, lon, alt) muunnetaan ensin maakeskisiksi suorakulmaisiksi koordinaateiksi (X, Y, Z). Tämän jälkeen lasketaan X-, Y-, ja Z-koordinaattien keskiarvo, josta tulee tasokoordinaatiston origo. Seuraavaksi muodostetaan erotusvektorit vähentämällä kunkin pisteen XYZ-koordinaateista origon XYZ-koordinaatit. Koordinaattimuunnos paikalliseen tangenttitasoon tapahtuu tekemällä koordinaatiston kierrot pituuspiirin ja leveyspiirin mukaan. 
 
-#### Koordinaattimuunnokset
+Tarvittavat koordinaattimuunnokset löytyvät tiedostossa [conversions.py](/examples/conversions.py)
 
-Tarvittavat koordinaattimuunnokset ovat tiedostossa [conversions.py](/examples/conversions.py)
+Funktio lla2xyz muuntaa maantieteelliset koordinaatit (lat, lon alt) suorakulmaisiksi maakeskisiksi koordinaateiksi (X, Y, Z). Funktio xyz2enu muuntaa suorakulmaiset maakeskiset koordinaatit (x, y, z) tasokoordinaatistoon (east, north, up). Tasokoordinaatiston origo maakeskisessä koordinaatisossa annetaan funktiolle paramterina.
 
-Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus). Python-funktio lla2xyz muuntaa maantieteelliset koordinaatit suorakulmaisiksi koordinaateiksi.
+#### Ohjeet
 
+Ota pohjaksi edellinen harjoitus. Lisää ohjelman alkuun listat paikan east- ja north-komponentteja varten.
+
+```python
+# lista GPS-aikaa varten
+gpstime = []
+# lista korkeutta varten
+heightdata = []
+# lista paikan itäkomponenttia varten
+eastdata = []
+# lista paikan pohjoiskomponenttia varten
+northdata = []
+```
 
