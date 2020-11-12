@@ -252,5 +252,5 @@ plt.show()
 ```
 Tulostus näyttää tältä.
 
-![](/images/Vaakaplot.PNG)
+![](/images/Vaakaplot.png)
 
