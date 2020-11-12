@@ -22,29 +22,18 @@ def lla2xyz(latitude, longitude, altitude):
 
     return x, y, z
 
-def xyz2enu(x, y, z, latOrigin, longOrigin, altOrigin):
+def xyz2enu(deltax, deltay, deltaz, latOrigin, lonOrigin):
 
     cosLatOrigin = math.cos(latOrigin * math.pi / 180)
     sinLatOrigin = math.sin(latOrigin * math.pi / 180)
 
-    cosLongOrigin = math.cos(longOrigin * math.pi / 180)
-    sinLongOrigin = math.sin(longOrigin * math.pi / 180)
+    cosLonOrigin = math.cos(lonOrigin * math.pi / 180)
+    sinLonOrigin = math.sin(lonOrigin * math.pi / 180)
 
-    cOrigin = 1 / math.sqrt(cosLatOrigin * cosLatOrigin + (1 - f) * (1 - f) * sinLatOrigin * sinLatOrigin)
+    east = (-deltax * sinLonOrigin) + (deltay*cosLonOrigin)
 
-    x0 = (R*cOrigin + altOrigin) * cosLatOrigin * cosLongOrigin
-    y0 = (R*cOrigin + altOrigin) * cosLatOrigin * sinLongOrigin
-    z0 = (R*cOrigin*(1-e2) + altOrigin) * sinLatOrigin
+    north = (-cosLonOrigin*sinLatOrigin*deltax) - (sinLatOrigin*sinLonOrigin*deltay) + (cosLatOrigin*deltaz)
 
-    xEast = (-(x-x0) * sinLongOrigin) + ((y-y0)*cosLongOrigin)
+    up = (cosLatOrigin*cosLonOrigin*deltax) + (cosLatOrigin*sinLonOrigin*deltay) + (sinLatOrigin*deltaz)
 
-    yNorth = (-cosLongOrigin*sinLatOrigin*(x-x0)) - (sinLatOrigin*sinLongOrigin*(y-y0)) + (cosLatOrigin*(z-z0))
-
-    zUp = (cosLatOrigin*cosLongOrigin*(x-x0)) + (cosLatOrigin*sinLongOrigin*(y-y0)) + (sinLatOrigin*(z-z0))
-
-    return xEast, yNorth, zUp
-
-def lla2enu(lat, lon, h, latOrigin, lonOrigin, altOrigin):
-    x, y, z = gps_to_ecef(lat, lon, h)
-
-    return ecef_to_enu(x, y, z, latOrigin, lonOrigin, hOrigin)
+    return east, north, up
