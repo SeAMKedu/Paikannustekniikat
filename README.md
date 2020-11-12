@@ -171,10 +171,86 @@ Jatka edellistä ohjelmaa siten, että se piirtää näytölle graafisessa muodo
 
 NMEA-tiedostossa olevat maantieteelliset koordinaatit (lat, lon, alt) muunnetaan ensin maakeskisiksi suorakulmaisiksi koordinaateiksi (X, Y, Z). Tämän jälkeen lasketaan X-, Y-, ja Z-koordinaattien keskiarvo, josta tulee tasokoordinaatiston origo. Seuraavaksi muodostetaan erotusvektorit vähentämällä kunkin pisteen XYZ-koordinaateista origon XYZ-koordinaatit. Koordinaattimuunnos paikalliseen tangenttitasoon tapahtuu tekemällä koordinaatiston kierrot pituuspiirin ja leveyspiirin mukaan. 
 
-#### Koordinaattimuunnokset
+Tarvittavat koordinaattimuunnokset löytyvät tiedostossa [conversions.py](/examples/conversions.py)
 
-Tarvittavat koordinaattimuunnokset ovat tiedostossa [conversions.py](/examples/conversions.py)
+Funktio lla2xyz muuntaa maantieteelliset koordinaatit (lat, lon alt) suorakulmaisiksi maakeskisiksi koordinaateiksi (X, Y, Z). Funktio xyz2enu muuntaa suorakulmaiset maakeskiset koordinaatit (x, y, z) tasokoordinaatistoon (east, north, up). Tasokoordinaatiston origo maakeskisessä koordinaatisossa annetaan funktiolle paramterina.
 
-Pisteen paikka voidaan esittää joko suorakulmaisina koordinaatteina (xyz) tai maantieteellisinä koordinaatteina (leveyspiiri, pituuspiiri, korkeus). Python-funktio lla2xyz muuntaa maantieteelliset koordinaatit suorakulmaisiksi koordinaateiksi.
+#### Ohjeet
 
+Ota pohjaksi edellinen harjoitus. Lisää ohjelman alkuun listat pituuspiiri- ja leveyspiiridataa varten.
+
+```python
+# lista GPS-aikaa varten
+gpstime = []
+# lista korkeutta varten
+heightdata = []
+# lista leveyspiiridataa varten
+latitudedata = []
+# lista pituuspiiridataa varten
+longitudedata = []
+```
+Lisää seuraavaksi NMEA-datasta otetut pituuspiirit ja leveyspiirit listoihin.
+
+```python
+        # lisää GPS-aika listaan
+        gpstime.append(float(pieces[1]))
+        # lisää korkeus listaan
+        heightdata.append(height) 
+        # lisää leveyspiiri listaan
+        latitudedata.append(latitude)
+        # lisää pituuspiiri listaan
+        longitudedata.append(longitude)   
+```
+Laske ohjelman lopussa pituuspiirien ja leveyspiirien keskiarvo. Tästä tulee paikallisen tasokoordinaatiston origo.
+
+```python
+file.close()
+
+# keskiarvot
+originHeight = np.mean(heightdata)
+originLat = np.mean(latitudedata)
+originLon = np.mean(longitudedata)
+```
+Muunna seuraavaksi origon maantieteelliset koordinaatit xyz-koordinaatistoon.
+```python
+# origon xyz-koordinaatit
+originX, originY, originZ = conversions.lla2xyz(originLat, originLon, originHeight)
+```
+Tee listat east-, north- ja up-koordinaatteja varten.
+```python
+eastlist = []
+northlist = []
+uplist =[]
+```
+Käy listoissa olevat lat-, lon-, alt-koordinaatistossa olevat pisteet läpi. Muunna kukin piste ensin xyz-koordinaatistoon. Laske sitten vektori xyz-koordinaatistossa origon ja pisteen välillä. Kierrä tämä vektori käyttäen kiertokulmina leveys- ja pituuspiirejä. Lisää lasketut east-, north- ja up-koordinaatit listoihin. 
+```python
+# käydään lat-lon-alt-listat läpi ja muunnetaan paikalliseen tasokoordinaatistoon
+for i in range(len(heightdata)):
+    # muunnos lat-lon-alt koordinaateista xyz-koordinaateiksi
+    x, y, z = conversions.lla2xyz(latitudedata[i], longitudedata[i], heightdata[i])
+    # muunnos paikalliseen tangenttitasoon (enu)
+    # tehdään vektori origosta pisteeseen 
+    deltax = x - originX
+    deltay = y - originY
+    deltaz = z - originZ
+
+    # kierretään vektori origosta pisteeseen leveys- ja pituuspiirit kiertokulmina
+    e, n, u = conversions.xyz2enu(deltax, deltay, deltaz, originLat, originLon)
+    
+    # lisätään lasketut koordinaatit listoihin
+    eastlist.append(e)
+    northlist.append(n)
+    uplist.append(u)
+```
+Tulosta ohjelman lopussa GPS-vastaanottimen mittaamat pisteet paikalliseen tangenttitasoon muunnettuna.
+```python
+plt.plot(eastlist, northlist,"xb")
+plt.title("Vaakakomponentit")
+plt.xlabel("East [m]")
+plt.ylabel("North [m]")
+plt.show()
+```
+Tulostus näyttää tältä.
+
+![](/images/Vaakaplot.PNG)
 
