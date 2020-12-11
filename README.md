@@ -1,6 +1,7 @@
-# Paikannustekniikat
 
-## Harjoituksia koordinaattimuunnoksiin liittyen
+# NMEA-muotoisen datan käsittely
+
+GNSS-vastaanottimet tuottavat paikannukseen liittyvää tietoa NMEA-muodossa. Tällä sivulla kaksi Python-ohjelmointikielellä tehtyä esimerkkiä, joissa käsitellään NMEA-datassa olevaa paikkatietoa. Samalla näytetään, miten paikkakoordinaatit voidaan tulostaa graafisessa muodossa käyttäen matplotlib.pyplot-kirjastoa. Ensimmäisessä esimerkissä luetaan paikkakoordinaatit NMEA:n GGA-viestistä ja tulostetaan korkeus. Toisessa esimerkissä muunnetaan maantieteelliset koordinaatit paikalliseen tasokoordinaatistoon ja tulostetaan vaakasuuntaiset komponentit graafisessa muodossa.
 
 ### Harjoitus 1
 
@@ -29,6 +30,7 @@ $GPRMC,082328.00,A,6247.32943,N,02249.35805,E,0.005,,111120,,,A*7A
 $GPVTG,,T,,M,0.005,N,0.009,K,A*2F
 ```
 Meitä kiinnostaa nyt eniten $GPGGA-viesti, jossa on muun muassa GPS-vastaanottimen laskema aika, pituuspiiri, leveyspiiri ja korkeus.
+(Uudemmissa GNSS-vastaanottimissa vastaava data on $GNGGA-viestissä.)
 ```
 $GPGGA,082327.00,6247.32927,N,02249.35779,E,1,05,1.73,41.4,M,20.7,M,,*6C
 ```
@@ -167,7 +169,7 @@ Graafinen tulostus näyttää tältä:
 
 ### Harjoitus 2
 
-Jatka edellistä ohjelmaa siten, että se piirtää näytölle graafisessa muodossa GPS-vastaanottimen laskemien paikkojen vaakakomponentit. Mitatut pisteet halutaan  näyttää tasokoordinaatistossa, jonko origo on mitattujen pisteiden keskiarvo. Tässä paikalliseen tangenttitasoon asetetussa kooridnaatistossa X-akseli osoittaa itään ja Y-akseli pohjoiseen. Z-akseli osoittaa ylöspäin tasosta katsojaa kohti.
+Jatka edellistä ohjelmaa siten, että se piirtää näytölle graafisessa muodossa GPS-vastaanottimen laskemien paikkojen vaakakomponentit. Mitatut pisteet halutaan näyttää tasokoordinaatistossa, jonko origo on mitattujen pisteiden keskiarvo. Tässä paikalliseen tangenttitasoon asetetussa koordinaatistossa X-akseli osoittaa itään ja Y-akseli pohjoiseen. Z-akseli osoittaa ylöspäin tasosta katsojaa kohti.
 
 NMEA-tiedostossa olevat maantieteelliset koordinaatit (lat, lon, alt) muunnetaan ensin maakeskisiksi suorakulmaisiksi koordinaateiksi (X, Y, Z). Tämän jälkeen lasketaan X-, Y-, ja Z-koordinaattien keskiarvo, josta tulee tasokoordinaatiston origo. Seuraavaksi muodostetaan erotusvektorit vähentämällä kunkin pisteen XYZ-koordinaateista origon XYZ-koordinaatit. Koordinaattimuunnos paikalliseen tangenttitasoon tapahtuu tekemällä koordinaatiston kierrot pituuspiirin ja leveyspiirin mukaan. 
 
