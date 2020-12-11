@@ -1,5 +1,5 @@
 
-# NMEA-muotoisen datan käsittely
+# NMEA-muotoisen datan käsittely Python-ohjelmointikielellä
 
 GNSS-vastaanottimet tuottavat paikannukseen liittyvää tietoa NMEA-muodossa. Tällä sivulla kaksi Python-ohjelmointikielellä tehtyä esimerkkiä, joissa käsitellään NMEA-datassa olevaa paikkatietoa. Samalla näytetään, miten paikkakoordinaatit voidaan tulostaa graafisessa muodossa käyttäen matplotlib.pyplot-kirjastoa. Ensimmäisessä esimerkissä luetaan paikkakoordinaatit NMEA:n GGA-viestistä ja tulostetaan korkeus. Toisessa esimerkissä muunnetaan maantieteelliset koordinaatit paikalliseen tasokoordinaatistoon ja tulostetaan vaakasuuntaiset komponentit graafisessa muodossa.
 
